@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, ImageBackground, Text, Keyboard, Animated, StyleSheet } from 'react-native';
+import { View, Text, Keyboard, Animated, StyleSheet, Platform } from 'react-native';
 
 import styles from './styles';
 
@@ -14,8 +14,15 @@ class Logo extends Component {
   }
 
   componentDidMount() {
-    this.keyboardShowListener = Keyboard.addListener('keyboardWillShow', this.keyboardShow);
-    this.keyboardHideListener = Keyboard.addListener('keyboardWillHide', this.keyboardHide);
+    const name = Platform.OS === 'ios' ? 'Will' : 'Did';
+    this.keyboardShowListener = Keyboard.addListener(
+      `keyboard${name}Show`,
+      this.keyboardShow,
+    );
+    this.keyboardHideListener = Keyboard.addListener(
+      `keyboard${name}Hide`,
+      this.keyboardHide,
+    );
   }
 
   componentWillUnmount() {
