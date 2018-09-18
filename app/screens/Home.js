@@ -42,7 +42,7 @@ class Home extends Component {
       <Container>
         <StatusBar
           translucent={false}
-          barStyle="default"
+          barStyle="light-content"
         />
         <Header
           onPress={this.handleOptionsPress}
