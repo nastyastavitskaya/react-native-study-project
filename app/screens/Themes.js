@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ScrollView, StatusBar } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import { connect } from 'react-redux';
 
 import { ListItem, Separator } from '../components/List';
+import { changePrimaryColor } from '../actions/theme';
 
 const styles = EStyleSheet.create({
   $blue: '$primaryBlue',
@@ -14,10 +16,13 @@ const styles = EStyleSheet.create({
 class Themes extends Component {
   static propTypes = {
     navigation: PropTypes.object,
+    dispatch: PropTypes.func,
   };
 
-  handleThemePress = (color) => {
-    this.props.navigation.goBack();
+  handlePressTheme = (color) => {
+    const { navigation, dispatch } = this.props;
+    dispatch(changePrimaryColor(color));
+    navigation.goBack();
   };
 
   render() {
@@ -26,7 +31,7 @@ class Themes extends Component {
         <StatusBar translucent={false} barStyle="default" />
         <ListItem
           text="Blue"
-          onPress={() => this.handleThemePress(styles.$blue)}
+          onPress={() => this.handlePressTheme(styles.$blue)}
           selected
           checkmark={false}
           iconBackground={styles.$blue}
@@ -34,7 +39,7 @@ class Themes extends Component {
         <Separator />
         <ListItem
           text="Orange"
-          onPress={() => this.handleThemePress(styles.$orange)}
+          onPress={() => this.handlePressTheme(styles.$orange)}
           selected
           checkmark={false}
           iconBackground={styles.$orange}
@@ -42,7 +47,7 @@ class Themes extends Component {
         <Separator />
         <ListItem
           text="Green"
-          onPress={() => this.handleThemePress(styles.$green)}
+          onPress={() => this.handlePressTheme(styles.$green)}
           selected
           checkmark={false}
           iconBackground={styles.$green}
@@ -50,7 +55,7 @@ class Themes extends Component {
         <Separator />
         <ListItem
           text="Purple"
-          onPress={() => this.handleThemePress(styles.$purple)}
+          onPress={() => this.handlePressTheme(styles.$purple)}
           selected
           checkmark={false}
           iconBackground={styles.$purple}
@@ -62,4 +67,4 @@ class Themes extends Component {
   }
 }
 
-export default Themes;
+export default connect()(Themes);

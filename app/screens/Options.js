@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView, StatusBar, Platform, Linking } from 'react-native';
+import {
+  ScrollView,
+  StatusBar,
+  Platform,
+  Linking,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import { ListItem, Separator } from '../components/List';
@@ -17,13 +22,13 @@ class Options extends Component {
   };
 
   handleThemesPress = () => {
-    this.props.navigation.navigate('Themes');
+    const { navigation } = this.props;
+    navigation.navigate('Themes');
   };
 
   handleSitePress = () => {
-    Linking.openURL('http://fixer.io').catch(() =>
-      this.props.alertWithType('error', 'Sorry!', "Fixer.io can't be opened right now."),
-    );
+    const { alertWithType } = this.props;
+    Linking.openURL('http://fixer.io').catch(() => alertWithType('error', 'Sorry!', "Fixer.io can't be opened right now."));
   };
 
   render() {
